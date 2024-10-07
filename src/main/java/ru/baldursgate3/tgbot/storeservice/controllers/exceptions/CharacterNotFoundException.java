@@ -1,4 +1,4 @@
-package ru.baldursgate3.tgbot.storeservice.jpa.controllers.exceptions;
+package ru.baldursgate3.tgbot.storeservice.controllers.exceptions;
 
 public class CharacterNotFoundException extends RuntimeException{
     public CharacterNotFoundException(Long id) {

@@ -1,21 +1,19 @@
-package ru.baldursgate3.tgbot.storeservice.jpa.entities;
+package ru.baldursgate3.tgbot.storeservice.entities;
 
 import jakarta.persistence.*;
 
-import java.util.List;
 import java.util.Objects;
 
-
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "characters")
+public class Character {
     private @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     private String name;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Character> characterList;
-
+    @ManyToOne
+    @JoinColumn(name = "user_id",nullable = false)
+    private User user;
 
     public Long getId() {
         return id;
@@ -33,20 +31,20 @@ public class User {
         this.name = name;
     }
 
-    public List<Character> getCharacterList() {
-        return characterList;
+    public User getUser() {
+        return user;
     }
 
-    public void setCharacterList(List<Character> characterList) {
-        this.characterList = characterList;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id);
+        Character character = (Character) o;
+        return id.equals(character.id);
     }
 
     @Override

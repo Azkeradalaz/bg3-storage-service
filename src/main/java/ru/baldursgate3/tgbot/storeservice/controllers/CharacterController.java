@@ -1,10 +1,10 @@
-package ru.baldursgate3.tgbot.storeservice.jpa.controllers;
+package ru.baldursgate3.tgbot.storeservice.controllers;
 
 import org.springframework.web.bind.annotation.*;
-import ru.baldursgate3.tgbot.storeservice.jpa.controllers.exceptions.CharacterNotFoundException;
-import ru.baldursgate3.tgbot.storeservice.jpa.entities.Character;
-import ru.baldursgate3.tgbot.storeservice.jpa.repositories.CharacterRepository;
-import ru.baldursgate3.tgbot.storeservice.jpa.repositories.UserRepository;
+import ru.baldursgate3.tgbot.storeservice.controllers.exceptions.CharacterNotFoundException;
+import ru.baldursgate3.tgbot.storeservice.entities.Character;
+import ru.baldursgate3.tgbot.storeservice.repositories.CharacterRepository;
+import ru.baldursgate3.tgbot.storeservice.repositories.UserRepository;
 
 import java.util.List;
 
