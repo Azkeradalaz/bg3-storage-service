@@ -8,46 +8,46 @@ import ru.baldursgate3.tgbot.storeservice.repositories.CharacterRepository;
 import java.util.List;
 
 @RestController
-@RequestMapping("/build")
+@RequestMapping("build")
 public class CharacterController {
 
-    private final CharacterRepository characterRepository;
+    private final CharacterRepository gameCharacterRepository;
 
-    public CharacterController(CharacterRepository characterRepository) {
-        this.characterRepository = characterRepository;
+    public CharacterController(CharacterRepository gameCharacterRepository) {
+        this.gameCharacterRepository = gameCharacterRepository;
     }
 
 
     @PostMapping("/create")
     GameCharacter newGameCharacter(@RequestBody GameCharacter newGameCharacter) {
 
-        return newGameCharacter;
+        return newGameCharacter;//todo service
     }
 
     @GetMapping("/all")
     List<GameCharacter> all() {
-        return characterRepository.findAll();//TODO возвращает все записи вне зависимости от пользователя
+        return gameCharacterRepository.findAll();//TODO возвращает все записи вне зависимости от пользователя
 
     }
 
     @PutMapping("/{id}")
     GameCharacter updateGameCharacter(@RequestBody GameCharacter newGameCharacter, @PathVariable Long id) {
-        return characterRepository.findById(id)
+        return gameCharacterRepository.findById(id)
                 .map(gameCharacter -> {
                     gameCharacter.setName(gameCharacter.getName());
-                    return characterRepository.save(gameCharacter);
+                    return gameCharacterRepository.save(gameCharacter);
                 })
-                .orElseGet(() -> characterRepository.save(newGameCharacter));
+                .orElseGet(() -> gameCharacterRepository.save(newGameCharacter));
     }
 
     @DeleteMapping("/{id}")
     void deleteGameCharacter(@PathVariable Long id) {
-        characterRepository.deleteById(id);
+        gameCharacterRepository.deleteById(id);
     }
 
     @GetMapping("/{id}")
-    GameCharacter getGameCharacter(@RequestParam Long id) {
-        return characterRepository.findById(id)
+    GameCharacter getGameCharacter(@PathVariable Long id) {
+        return gameCharacterRepository.findById(id)
                 .orElseThrow(() -> new GameCharacterNotFoundException(id));
     }
 
