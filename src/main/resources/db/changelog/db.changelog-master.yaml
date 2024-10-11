@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: 'changeset/create-user-table.yaml'
+      relativeToChangeLogFile: true
+  - include:
+      file: 'changeset/create-gamecharacters-table.yaml'
+      relativeToChangeLogFile: true
