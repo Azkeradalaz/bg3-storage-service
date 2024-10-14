@@ -36,7 +36,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: toughness
+                  name: constitution
                   type: tinyint
                   constraints:
                     nullable: false

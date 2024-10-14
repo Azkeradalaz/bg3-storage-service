@@ -1,55 +1,54 @@
 package ru.baldursgate3.tgbot.storeservice.controllers;
 
 import org.springframework.web.bind.annotation.*;
-import ru.baldursgate3.tgbot.storeservice.controllers.exceptions.GameCharacterNotFoundException;
 import ru.baldursgate3.tgbot.storeservice.entities.GameCharacter;
-import ru.baldursgate3.tgbot.storeservice.repositories.GameCharacterRepository;
+import ru.baldursgate3.tgbot.storeservice.models.GameCharacterCreateRequest;
+import ru.baldursgate3.tgbot.storeservice.services.GameCharacterService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("build")
+@RequestMapping("gamecharacter")
 public class GameCharacterController {
 
-    private final GameCharacterRepository gameCharacterRepository;
+    private final GameCharacterService gameCharacterService;
 
-    public GameCharacterController(GameCharacterRepository gameCharacterRepository) {
-        this.gameCharacterRepository = gameCharacterRepository;
+    public GameCharacterController(GameCharacterService gameCharacterService) {
+        this.gameCharacterService = gameCharacterService;
     }
 
+    @PostMapping
+    GameCharacter createGameCharacter(@RequestBody GameCharacterCreateRequest gameCharacterCreateRequest) {
 
-    @PostMapping("/create")
-    GameCharacter newGameCharacter(@RequestBody GameCharacter newGameCharacter) {
-
-        return newGameCharacter;//todo service
+        return gameCharacterService.create(gameCharacterCreateRequest);
     }
 
-    @GetMapping("/all")
-    List<GameCharacter> all() {
-        return gameCharacterRepository.findAll();//TODO возвращает все записи вне зависимости от пользователя
+    @GetMapping
+    List<GameCharacter> getGameCharacters() {
+        return gameCharacterService.findGameCharacters();//TODO возвращает все записи вне зависимости от пользователя
 
     }
 
-    @PutMapping("/{id}")
-    GameCharacter updateGameCharacter(@RequestBody GameCharacter newGameCharacter, @PathVariable Long id) {
-        return gameCharacterRepository.findById(id)
-                .map(gameCharacter -> {
-                    gameCharacter.setName(gameCharacter.getName());
-                    return gameCharacterRepository.save(gameCharacter);
-                })
-                .orElseGet(() -> gameCharacterRepository.save(newGameCharacter));
-    }
-
-    @DeleteMapping("/{id}")
-    void deleteGameCharacter(@PathVariable Long id) {
-        gameCharacterRepository.deleteById(id);
-    }
-
-    @GetMapping("/{id}")
-    GameCharacter getGameCharacter(@PathVariable Long id) {
-        return gameCharacterRepository.findById(id)
-                .orElseThrow(() -> new GameCharacterNotFoundException(id));
-    }
+//    @PutMapping("/{id}")
+//    GameCharacter updateGameCharacter(@RequestBody GameCharacter newGameCharacter, @PathVariable Long id) {
+//        return gameCharacterRepository.findById(id)
+//                .map(gameCharacter -> {
+//                    gameCharacter.setName(gameCharacter.getName());
+//                    return gameCharacterRepository.save(gameCharacter);
+//                })
+//                .orElseGet(() -> gameCharacterRepository.save(newGameCharacter));
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    void deleteGameCharacter(@PathVariable Long id) {
+//        gameCharacterRepository.deleteById(id);
+//    }
+//
+//    @GetMapping("/{id}")
+//    GameCharacter getGameCharacter(@PathVariable Long id) {
+//        return gameCharacterRepository.findById(id)
+//                .orElseThrow(() -> new GameCharacterNotFoundException(id));
+//    }
 
 
 }

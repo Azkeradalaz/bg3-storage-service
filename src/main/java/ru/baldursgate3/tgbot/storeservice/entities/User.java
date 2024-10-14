@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(onlyExplicitlyIncluded = true)
-@Entity
+@Entity(name = "User")
 @Table(name = "users")
 public class User {
 
@@ -16,12 +16,13 @@ public class User {
     @EqualsAndHashCode.Include
     @ToString.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(insertable=false, updatable=false)
     private Long id;
 
     @ToString.Include
     private String name;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<GameCharacter> gameCharacterList;
 
 
