@@ -3,17 +3,17 @@ package ru.baldursgate3.tgbot.storeservice.controllers;
 import org.springframework.web.bind.annotation.*;
 import ru.baldursgate3.tgbot.storeservice.controllers.exceptions.GameCharacterNotFoundException;
 import ru.baldursgate3.tgbot.storeservice.entities.GameCharacter;
-import ru.baldursgate3.tgbot.storeservice.repositories.CharacterRepository;
+import ru.baldursgate3.tgbot.storeservice.repositories.GameCharacterRepository;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("build")
-public class CharacterController {
+public class GameCharacterController {
 
-    private final CharacterRepository gameCharacterRepository;
+    private final GameCharacterRepository gameCharacterRepository;
 
-    public CharacterController(CharacterRepository gameCharacterRepository) {
+    public GameCharacterController(GameCharacterRepository gameCharacterRepository) {
         this.gameCharacterRepository = gameCharacterRepository;
     }
 

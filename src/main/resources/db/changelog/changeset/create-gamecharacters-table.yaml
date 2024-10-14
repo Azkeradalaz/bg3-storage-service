@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: create-gamecharacters-table
+      id: gamecharactersv001
       author: Mikhail.Rovsha
       changes:
         - createTable:
@@ -26,21 +26,6 @@ databaseChangeLog:
                     references: users(id)
                     foreignKeyName: fk_gamecharacters_users_id
               - column:
-                  name: origin
-                  type: bigint
-                  constraints:
-                    nullable: false
-              - column:
-                  name: race
-                  type: bigint
-                  constraints:
-                    nullable: false
-              - column:
-                  name: background
-                  type: bigint
-                  constraints:
-                    nullable: false
-              - column:
                   name: strength
                   type: tinyint
                   constraints:
@@ -56,12 +41,12 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: wisdom
+                  name: intellect
                   type: tinyint
                   constraints:
                     nullable: false
               - column:
-                  name: intellect
+                  name: wisdom
                   type: tinyint
                   constraints:
                     nullable: false
@@ -70,63 +55,3 @@ databaseChangeLog:
                   type: tinyint
                   constraints:
                     nullable: false
-              - column:
-                  name: headwear
-                  type: bigint
-                  constraints:
-                    nullable: true
-              - column:
-                  name: armor
-                  type: bigint
-                  constraints:
-                    nullable: true
-              - column:
-                  name: gloves
-                  type: bigint
-                  constraints:
-                    nullable: true
-              - column:
-                  name: boots
-                  type: bigint
-                  constraints:
-                    nullable: true
-              - column:
-                  name: cloak
-                  type: bigint
-                  constraints:
-                    nullable: true
-              - column:
-                  name: ring1
-                  type: bigint
-                  constraints:
-                    nullable: true
-              - column:
-                  name: ring2
-                  type: bigint
-                  constraints:
-                    nullable: true
-              - column:
-                  name: amulet
-                  type: bigint
-                  constraints:
-                    nullable: true
-              - column:
-                  name: mainhandmelee
-                  type: bigint
-                  constraints:
-                    nullable: true
-              - column:
-                  name: offhandmelee
-                  type: bigint
-                  constraints:
-                    nullable: true
-              - column:
-                  name: mainhandrange
-                  type: bigint
-                  constraints:
-                    nullable: true
-              - column:
-                  name: offhandrange
-                  type: bigint
-                  constraints:
-                    nullable: true

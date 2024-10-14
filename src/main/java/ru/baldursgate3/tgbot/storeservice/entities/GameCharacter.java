@@ -7,22 +7,30 @@ import lombok.ToString;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString(onlyExplicitlyIncluded = true)
+@ToString
 @Entity
 @Table(name = "characters")
 public class GameCharacter {
 
     @Id
     @EqualsAndHashCode.Include
-    @ToString.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ToString.Include
     private String name;
 
     @ManyToOne
+    @ToString.Exclude
     @JoinColumn(name = "user_id",nullable = false)
     private User user;
+
+    private short strength;
+    private short dexterity;
+    private short toughness;
+    private short intellect;
+    private short wisdom;
+    private short charisma;
+
+
     
 }
