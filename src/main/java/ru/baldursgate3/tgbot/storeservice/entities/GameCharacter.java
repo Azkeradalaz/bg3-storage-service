@@ -20,9 +20,8 @@ public class GameCharacter {
 
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @ToString.Exclude
-    @JoinColumn(name = "id",nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "user",nullable = false)
     private User user;
 
     private short strength;
