@@ -1,6 +1,8 @@
 package ru.baldursgate3.tgbot.storeservice.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.baldursgate3.tgbot.storeservice.entities.GameCharacter;
 import ru.baldursgate3.tgbot.storeservice.models.GameCharacterCreateRequest;
@@ -16,15 +18,15 @@ public class GameCharacterController {
     private final GameCharacterService gameCharacterService;
 
     @PostMapping
-    GameCharacter createGameCharacter(@RequestBody GameCharacterCreateRequest gameCharacterCreateRequest) {
-
-        return gameCharacterService.create(gameCharacterCreateRequest);
+    ResponseEntity<GameCharacter> createGameCharacter(@RequestBody GameCharacterCreateRequest gameCharacterCreateRequest) {
+        GameCharacter gameCharacter = gameCharacterService.create(gameCharacterCreateRequest);
+        return new ResponseEntity<>(gameCharacter, HttpStatus.CREATED);
     }
 
     @GetMapping
-    List<GameCharacter> getGameCharacters() {
-        return gameCharacterService.findGameCharacters();//TODO возвращает все записи вне зависимости от пользователя
-
+    ResponseEntity<List<GameCharacter>> getGameCharacters() {
+        List<GameCharacter> gameCharacterList = gameCharacterService.findGameCharacters();//todo возвращает всех персов всех пользователей
+        return new ResponseEntity<>(gameCharacterList,HttpStatus.OK);
     }
 
 //    @PutMapping("/{id}")
