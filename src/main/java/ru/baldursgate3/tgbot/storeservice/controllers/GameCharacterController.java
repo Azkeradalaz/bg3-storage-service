@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/gamecharacter")
+@RequestMapping("/character")
 public class GameCharacterController {
 
     private final GameCharacterService gameCharacterService;
