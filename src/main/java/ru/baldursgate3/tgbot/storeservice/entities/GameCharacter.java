@@ -14,7 +14,6 @@ public class GameCharacter {
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(insertable=false, updatable=false)
     private Long id;
 
     private String name;
