@@ -22,4 +22,17 @@ public class UserController {
         User newUser = userService.create(user);
         return new ResponseEntity<>(newUser,HttpStatus.CREATED);
     }
+
+    @PutMapping("/{id}")
+    ResponseEntity<User> update(@PathVariable  long id, @RequestBody User user){
+        User updateUser = userService.findById(id);
+        if (!user.getName().isBlank()) {
+            updateUser.setName(user.getName());
+        }
+        else {
+            return new ResponseEntity<>(updateUser,HttpStatus.BAD_REQUEST);
+        }
+        updateUser = userService.update(updateUser);
+        return new ResponseEntity<>(updateUser,HttpStatus.OK);
+    }
 }

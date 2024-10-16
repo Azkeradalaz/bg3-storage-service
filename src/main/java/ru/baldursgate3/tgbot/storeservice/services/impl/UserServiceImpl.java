@@ -23,7 +23,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(long userId) {
         return userRepository.findById(userId).orElseThrow(
-                () -> new UserNotFoundException("Пользователь с id:" + userId +" не существует.")
+                () -> new UserNotFoundException("Пользователь с id:" + userId + " не существует.")
         );
+    }
+
+    @Override
+    public User update(User updateUser) {
+        User user = findById(updateUser.getId());
+        user.setName(updateUser.getName());
+        return userRepository.save(updateUser);
     }
 }
