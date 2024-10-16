@@ -13,7 +13,7 @@ import ru.baldursgate3.tgbot.storeservice.services.UserService;
 @RequestMapping("/user")
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     @PostMapping
     public User create(@RequestBody User user){
