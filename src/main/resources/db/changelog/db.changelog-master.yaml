@@ -5,3 +5,9 @@ databaseChangeLog:
   - include:
       file: 'changeset/create-gamecharacters-table.sql'
       relativeToChangeLogFile: true
+  - include:
+      file: 'changeset/rename-game-characters.sql'
+      relativeToChangeLogFile: true
+  - include:
+      file: 'changeset/rename-users.sql'
+      relativeToChangeLogFile: true
