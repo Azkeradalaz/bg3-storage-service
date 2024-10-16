@@ -7,8 +7,7 @@ import lombok.ToString;
 import java.util.List;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString
-@Entity(name = "User")
+@Entity
 @Table(name = "users")
 public class User {
 

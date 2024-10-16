@@ -7,8 +7,7 @@ import lombok.ToString;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString
-@Entity(name = "GameCharacter")
+@Entity
 @Table(name = "gamecharacters")
 public class GameCharacter {
 
