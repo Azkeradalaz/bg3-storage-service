@@ -19,8 +19,5 @@ public class User {
     @ToString.Include
     private String name;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<GameCharacter> gameCharacterList;
-
 
 }
