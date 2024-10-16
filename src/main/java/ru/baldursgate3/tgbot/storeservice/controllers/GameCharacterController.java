@@ -1,5 +1,6 @@
 package ru.baldursgate3.tgbot.storeservice.controllers;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.baldursgate3.tgbot.storeservice.entities.GameCharacter;
 import ru.baldursgate3.tgbot.storeservice.models.GameCharacterCreateRequest;
@@ -8,14 +9,11 @@ import ru.baldursgate3.tgbot.storeservice.services.GameCharacterService;
 import java.util.List;
 
 @RestController
-@RequestMapping("gamecharacter")
+@RequiredArgsConstructor
+@RequestMapping("/gamecharacter")
 public class GameCharacterController {
 
     private final GameCharacterService gameCharacterService;
-
-    public GameCharacterController(GameCharacterService gameCharacterService) {
-        this.gameCharacterService = gameCharacterService;
-    }
 
     @PostMapping
     GameCharacter createGameCharacter(@RequestBody GameCharacterCreateRequest gameCharacterCreateRequest) {
