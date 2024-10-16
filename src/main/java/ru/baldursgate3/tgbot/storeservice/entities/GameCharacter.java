@@ -19,7 +19,7 @@ public class GameCharacter {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "user",nullable = false)
+    @JoinColumn
     private User user;
 
     private short strength;
