@@ -16,8 +16,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ToString.Include
     private String name;
+
+    private Long tgUserId;
 
 
 }
