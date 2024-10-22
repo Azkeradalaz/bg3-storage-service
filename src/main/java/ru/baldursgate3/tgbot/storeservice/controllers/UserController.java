@@ -19,7 +19,7 @@ public class UserController {
     @GetMapping
     ResponseEntity<User> check(@RequestBody User user) {
     List<User> tgUser = userService.getUserByTgId(user.getTgUserId());
-    User oneUser = (tgUser.size()==1) ? tgUser.get(0) : null;
+    User oneUser = (tgUser.size()>0) ? tgUser.get(0) : null;
     return new ResponseEntity<>(oneUser, HttpStatus.OK);
     }
 
