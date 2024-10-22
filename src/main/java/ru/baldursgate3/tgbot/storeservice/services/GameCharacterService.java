@@ -11,4 +11,5 @@ public interface GameCharacterService {
     List<GameCharacter> findGameCharacters();
 
     void deleteById(Long id);
+
 }

@@ -7,12 +7,21 @@ import org.springframework.web.bind.annotation.*;
 import ru.baldursgate3.tgbot.storeservice.entities.User;
 import ru.baldursgate3.tgbot.storeservice.services.UserService;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
+
+    @GetMapping
+    ResponseEntity<User> check(@RequestBody User user) {
+    List<User> tgUser = userService.getUserByTgId(user.getTgUserId());
+    User oneUser = (tgUser.size()==1) ? tgUser.get(0) : null;
+    return new ResponseEntity<>(oneUser, HttpStatus.OK);
+    }
 
     @PostMapping
     ResponseEntity<User> create(@RequestBody User user) {

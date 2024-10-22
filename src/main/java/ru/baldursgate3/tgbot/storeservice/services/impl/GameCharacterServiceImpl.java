@@ -44,4 +44,5 @@ public class GameCharacterServiceImpl implements GameCharacterService {
     public void deleteById(Long id) {
         gameCharacterRepository.deleteById(id);
     }
+
 }
