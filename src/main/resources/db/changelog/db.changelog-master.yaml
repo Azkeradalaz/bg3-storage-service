@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - include:
+      file: 'changeset/create-users-table.sql'
+      relativeToChangeLogFile: true
+  - include:
+      file: 'changeset/create-gamecharacters-table.sql'
+      relativeToChangeLogFile: true
+  - include:
+      file: 'changeset/rename-game-characters.sql'
+      relativeToChangeLogFile: true
+  - include:
+      file: 'changeset/rename-users.sql'
+      relativeToChangeLogFile: true
+  - include:
+      file: 'changeset/rename_game-characters_user_to_user_id.sql'
+      relativeToChangeLogFile: true
+  - include:
+      file: 'changeset/add-tg-user-id-user-table.sql'
+      relativeToChangeLogFile: true
