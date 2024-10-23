@@ -17,10 +17,12 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    ResponseEntity<User> check(@RequestBody User user) {
-    List<User> tgUser = userService.getUserByTgId(user.getTgUserId());
+    ResponseEntity<User> check(@RequestBody User tmpUser) {
+    List<User> tgUser = userService.getUserByTgId((tmpUser.getTgUserId()));
     User oneUser = (tgUser.size()>0) ? tgUser.get(0) : null;
+    System.out.println(oneUser);//todo del
     return new ResponseEntity<>(oneUser, HttpStatus.OK);
+
     }
 
     @PostMapping
