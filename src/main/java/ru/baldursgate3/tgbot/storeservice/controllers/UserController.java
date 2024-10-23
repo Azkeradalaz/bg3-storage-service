@@ -16,11 +16,10 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping
-    ResponseEntity<User> check(@RequestBody User tmpUser) {
-    List<User> tgUser = userService.getUserByTgId((tmpUser.getTgUserId()));
+    @GetMapping("/tgid/{tgId}")
+    ResponseEntity<User> check(@PathVariable Long tgId) {
+    List<User> tgUser = userService.getUserByTgId(tgId);
     User oneUser = (tgUser.size()>0) ? tgUser.get(0) : null;
-    System.out.println(oneUser);//todo del
     return new ResponseEntity<>(oneUser, HttpStatus.OK);
 
     }
@@ -32,7 +31,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    ResponseEntity<User> update(@PathVariable long id, @RequestBody User user) {
+    ResponseEntity<User> update(@PathVariable Long id, @RequestBody User user) {
         User updateUser = userService.findById(id);
         if (!user.getName().isBlank()) {
             updateUser.setName(user.getName());
