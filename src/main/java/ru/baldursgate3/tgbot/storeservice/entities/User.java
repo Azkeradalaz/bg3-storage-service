@@ -3,8 +3,7 @@ package ru.baldursgate3.tgbot.storeservice.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import java.util.List;
+
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
@@ -19,8 +18,5 @@ public class User {
     private String name;
 
     private Long tgUserId;
-
-
-
 
 }
