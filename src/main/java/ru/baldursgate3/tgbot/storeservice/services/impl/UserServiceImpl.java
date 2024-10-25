@@ -26,4 +26,9 @@ public class UserServiceImpl implements UserService {
                 () -> new UserNotFoundException("Пользователь с id:" + userId +" не существует.")
         );
     }
+
+    @Override
+    public User findByTgId(Long tgId) {
+        return userRepository.findByTgId(tgId);
+    }
 }

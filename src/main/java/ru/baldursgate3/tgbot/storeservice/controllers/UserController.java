@@ -4,11 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.baldursgate3.tgbot.storeservice.entities.GameCharacter;
 import ru.baldursgate3.tgbot.storeservice.entities.User;
 import ru.baldursgate3.tgbot.storeservice.services.UserService;
 
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,5 +19,12 @@ public class UserController {
     ResponseEntity<User> create(@RequestBody User user){
         User newUser = userService.create(user);
         return new ResponseEntity<>(newUser,HttpStatus.CREATED);
+    }
+
+    @GetMapping("/tgid/{tgId}")
+    ResponseEntity<User> findByTgId(@PathVariable Long tgId){
+        User user = userService.findByTgId(tgId);
+        return new ResponseEntity<>(user,HttpStatus.OK);
+
     }
 }
