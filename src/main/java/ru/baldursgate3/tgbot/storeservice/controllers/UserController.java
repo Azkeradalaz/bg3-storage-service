@@ -16,9 +16,9 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    ResponseEntity<User> create(@RequestBody User user){
+    ResponseEntity<String> create(@RequestBody User user){
         User newUser = userService.create(user);
-        return new ResponseEntity<>(newUser,HttpStatus.CREATED);
+        return new ResponseEntity<>(newUser.getName(),HttpStatus.CREATED);
     }
 
     @GetMapping("/tgid/{tgId}")
