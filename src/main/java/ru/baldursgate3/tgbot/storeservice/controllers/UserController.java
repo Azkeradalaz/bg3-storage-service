@@ -22,9 +22,9 @@ public class UserController {
     }
 
     @GetMapping("/tgid/{tgId}")
-    ResponseEntity<User> findByTgId(@PathVariable Long tgId){
+    ResponseEntity<String> findByTgId(@PathVariable Long tgId){
         User user = userService.findByTgId(tgId);
-        return new ResponseEntity<>(user,HttpStatus.OK);
+        return new ResponseEntity<>(user.getName(),HttpStatus.OK);
 
     }
 }
