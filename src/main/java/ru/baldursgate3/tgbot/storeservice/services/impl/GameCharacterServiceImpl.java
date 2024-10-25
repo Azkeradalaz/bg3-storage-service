@@ -39,4 +39,10 @@ public class GameCharacterServiceImpl implements GameCharacterService {
     public List<GameCharacter> findGameCharacters() {
         return gameCharacterRepository.findAll();
     }
+
+    @Override
+    public void deleteById(Long id) {
+        gameCharacterRepository.deleteById(id);
+    }
+
 }

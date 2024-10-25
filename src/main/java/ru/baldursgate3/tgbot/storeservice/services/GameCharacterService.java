@@ -10,4 +10,6 @@ public interface GameCharacterService {
     GameCharacter create(GameCharacterCreateRequest gameCharacterCreateRequest);
     List<GameCharacter> findGameCharacters();
 
+    void deleteById(Long id);
+
 }

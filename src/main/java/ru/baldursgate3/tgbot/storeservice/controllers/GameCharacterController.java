@@ -39,15 +39,14 @@ public class GameCharacterController {
 //                .orElseGet(() -> gameCharacterRepository.save(newGameCharacter));
 //    }
 //
-//    @DeleteMapping("/{id}")
-//    void deleteGameCharacter(@PathVariable Long id) {
-//        gameCharacterRepository.deleteById(id);
-//    }
-//
+    @DeleteMapping("/{id}")
+    void deleteGameCharacter(@PathVariable Long id) {
+        gameCharacterService.deleteById(id);
+    }
+
 //    @GetMapping("/{id}")
-//    GameCharacter getGameCharacter(@PathVariable Long id) {
-//        return gameCharacterRepository.findById(id)
-//                .orElseThrow(() -> new GameCharacterNotFoundException(id));
+//    ResponseEntity<GameCharacter> getGameCharacter(@PathVariable Long id) {
+//        gameCharacterService.getById();
 //    }
 
 
