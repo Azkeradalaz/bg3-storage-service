@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface GameCharacterService {
 
-    GameCharacter create(GameCharacterCreateRequest gameCharacterCreateRequest);
+    GameCharacter create(GameCharacter newGameCharacter);
     List<GameCharacter> findGameCharacters();
 
     void deleteById(Long id);

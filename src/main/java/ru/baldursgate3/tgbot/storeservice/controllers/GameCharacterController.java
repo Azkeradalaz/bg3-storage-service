@@ -18,8 +18,8 @@ public class GameCharacterController {
     private final GameCharacterService gameCharacterService;
 
     @PostMapping
-    ResponseEntity<GameCharacter> createGameCharacter(@RequestBody GameCharacterCreateRequest gameCharacterCreateRequest) {
-        GameCharacter gameCharacter = gameCharacterService.create(gameCharacterCreateRequest);
+    ResponseEntity<GameCharacter> createGameCharacter(@RequestBody GameCharacter newGameCharacter) {
+        GameCharacter gameCharacter = gameCharacterService.create(newGameCharacter);
         return new ResponseEntity<>(gameCharacter, HttpStatus.CREATED);
     }
 
