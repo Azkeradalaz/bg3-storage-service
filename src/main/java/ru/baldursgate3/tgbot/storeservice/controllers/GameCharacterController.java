@@ -5,8 +5,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.baldursgate3.tgbot.storeservice.entities.GameCharacter;
-import ru.baldursgate3.tgbot.storeservice.models.GameCharacterCreateRequest;
+import ru.baldursgate3.tgbot.storeservice.entities.User;
+import ru.baldursgate3.tgbot.storeservice.models.GameCharacterDto;
+import ru.baldursgate3.tgbot.storeservice.models.UserDto;
 import ru.baldursgate3.tgbot.storeservice.services.GameCharacterService;
+import ru.baldursgate3.tgbot.storeservice.services.UserService;
 
 import java.util.List;
 
@@ -16,16 +19,28 @@ import java.util.List;
 public class GameCharacterController {
 
     private final GameCharacterService gameCharacterService;
+    private final UserService userService;
 
     @PostMapping
-    ResponseEntity<GameCharacter> createGameCharacter(@RequestBody GameCharacter newGameCharacter) {
-        GameCharacter gameCharacter = gameCharacterService.create(newGameCharacter);
-        return new ResponseEntity<>(gameCharacter, HttpStatus.CREATED);
+    ResponseEntity<String> createGameCharacter(@RequestBody GameCharacterDto newGameCharacter) {
+
+        User user = userService.findByTgId(newGameCharacter.userDto().tgUserId());
+        GameCharacter gameCharacter = new GameCharacter();
+        gameCharacter.setName(newGameCharacter.name());
+        gameCharacter.setUser(user);
+        gameCharacter.setStrength(newGameCharacter.strength());
+        gameCharacter.setDexterity(newGameCharacter.dexterity());
+        gameCharacter.setConstitution(newGameCharacter.constitution());
+        gameCharacter.setIntellect(newGameCharacter.intellect());
+        gameCharacter.setWisdom(newGameCharacter.wisdom());
+        gameCharacter.setCharisma(newGameCharacter.charisma());
+        gameCharacterService.create(gameCharacter);
+        return new ResponseEntity<>(gameCharacter.getName(), HttpStatus.CREATED);
     }
 
-    @GetMapping
-    ResponseEntity<List<GameCharacter>> getGameCharacters() {
-        List<GameCharacter> gameCharacterList = gameCharacterService.findGameCharacters();//todo возвращает всех персов всех пользователей
+    @GetMapping("/tgid/{tgId}")
+    ResponseEntity<List<GameCharacterDto>> getGameCharacters(@PathVariable Long tgId) {
+        List<GameCharacterDto> gameCharacterList = gameCharacterService.findGameCharactersByTgId(tgId);//todo возвращает всех персов всех пользователей
         return new ResponseEntity<>(gameCharacterList,HttpStatus.OK);
     }
 
