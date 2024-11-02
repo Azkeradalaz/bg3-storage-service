@@ -27,8 +27,7 @@ public class UserController {
 
     @GetMapping("/tgid/{tgId}")
     ResponseEntity<UserDto> findByTgId(@PathVariable Long tgId){
-        User user = null;
-        user = userService.findByTgId(tgId);
+        User user = userService.findByTgId(tgId);
         UserDto userDto = new UserDto(user.getName(), user.getTgUserId());
         if(user == null){
             return new ResponseEntity<>(null,HttpStatus.OK);
