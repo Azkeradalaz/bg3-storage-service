@@ -46,6 +46,7 @@ public class GameCharacterController {
 
         for (GameCharacter gameCharacter : gameCharacterList) {
             gameCharacterDtoList.add(new GameCharacterDto(
+                            gameCharacter.getId(),
                             gameCharacter.getName(),
                             new UserDto(gameCharacter.getUser().getName(), gameCharacter.getUser().getTgUserId()),
                             gameCharacter.getStrength(),
