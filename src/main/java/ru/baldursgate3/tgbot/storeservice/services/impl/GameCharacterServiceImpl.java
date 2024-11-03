@@ -23,7 +23,7 @@ public class GameCharacterServiceImpl implements GameCharacterService {
     }
 
     @Override
-    public List<GameCharacterDto> findGameCharactersByTgId(Long tgId) {
+    public List<GameCharacter> findGameCharactersByTgId(Long tgId) {
 
         return gameCharacterRepository.findAllByTgId(tgId);
     }

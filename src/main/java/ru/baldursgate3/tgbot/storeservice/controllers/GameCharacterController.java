@@ -11,6 +11,7 @@ import ru.baldursgate3.tgbot.storeservice.models.UserDto;
 import ru.baldursgate3.tgbot.storeservice.services.GameCharacterService;
 import ru.baldursgate3.tgbot.storeservice.services.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -40,11 +41,29 @@ public class GameCharacterController {
 
     @GetMapping("/tgid/{tgId}")
     ResponseEntity<List<GameCharacterDto>> getGameCharacters(@PathVariable Long tgId) {
-        List<GameCharacterDto> gameCharacterList = gameCharacterService.findGameCharactersByTgId(tgId);//todo возвращает всех персов всех пользователей
-        return new ResponseEntity<>(gameCharacterList,HttpStatus.OK);
+        List<GameCharacter> gameCharacterList = gameCharacterService.findGameCharactersByTgId(tgId);
+        List<GameCharacterDto> gameCharacterDtoList = new ArrayList<>();
+
+        for (GameCharacter gameCharacter : gameCharacterList) {
+            gameCharacterDtoList.add(new GameCharacterDto(
+                            gameCharacter.getName(),
+                            new UserDto(gameCharacter.getUser().getName(), gameCharacter.getUser().getTgUserId()),
+                            gameCharacter.getStrength(),
+                            gameCharacter.getDexterity(),
+                            gameCharacter.getConstitution(),
+                            gameCharacter.getIntellect(),
+                            gameCharacter.getWisdom(),
+                            gameCharacter.getCharisma()
+                    )
+            );
+
+        }
+
+        //todo возвращает всех персов всех пользователей
+        return new ResponseEntity<>(gameCharacterDtoList, HttpStatus.OK);
     }
 
-//    @PutMapping("/{id}")
+    //    @PutMapping("/{id}")
 //    GameCharacter updateGameCharacter(@RequestBody GameCharacter newGameCharacter, @PathVariable Long id) {
 //        return gameCharacterRepository.findById(id)
 //                .map(gameCharacter -> {

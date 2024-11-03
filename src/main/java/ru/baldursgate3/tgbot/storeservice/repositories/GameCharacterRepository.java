@@ -8,8 +8,7 @@ import ru.baldursgate3.tgbot.storeservice.models.GameCharacterDto;
 import java.util.List;
 
 public interface GameCharacterRepository extends JpaRepository<GameCharacter, Long> {
-
-
-    @Query(value = "select gc from game_character gc where user_id = ?1", nativeQuery = true)
-    List<GameCharacterDto> findAllByTgId(Long tgId);
+    @Query(value = "select * from game_character gc where user_id = " +
+            "(select id from tg_user where tg_user_id = ?1 limit 1)", nativeQuery = true)
+    List<GameCharacter> findAllByTgId(Long tgId);
 }

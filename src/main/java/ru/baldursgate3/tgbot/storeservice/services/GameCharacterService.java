@@ -8,7 +8,7 @@ import java.util.List;
 public interface GameCharacterService {
 
     GameCharacter create(GameCharacter newGameCharacter);
-    List<GameCharacterDto> findGameCharactersByTgId(Long tgId);
+    List<GameCharacter> findGameCharactersByTgId(Long tgId);
 
     void deleteById(Long id);
 
