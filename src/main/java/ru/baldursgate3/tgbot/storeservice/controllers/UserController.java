@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.baldursgate3.tgbot.storeservice.entities.User;
+import ru.baldursgate3.tgbot.storeservice.models.UserDto;
 import ru.baldursgate3.tgbot.storeservice.services.UserService;
 
 
@@ -16,20 +17,23 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    ResponseEntity<String> create(@RequestBody User user){
-        User newUser = userService.create(user);
+    ResponseEntity<String> create(@RequestBody UserDto user){
+        User newUser = new User();
+        newUser.setName(user.name());
+        newUser.setTgUserId(user.tgUserId());
+        userService.create(newUser);
         return new ResponseEntity<>(newUser.getName(),HttpStatus.CREATED);
     }
 
     @GetMapping("/tgid/{tgId}")
-    ResponseEntity<String> findByTgId(@PathVariable Long tgId){
-        User user = null;
-        user = userService.findByTgId(tgId);
+    ResponseEntity<UserDto> findByTgId(@PathVariable Long tgId){
+        User user = userService.findByTgId(tgId);
+        UserDto userDto = new UserDto(user.getName(), user.getTgUserId());
         if(user == null){
             return new ResponseEntity<>(null,HttpStatus.OK);
         }
         else {
-            return new ResponseEntity<>(user.getName(),HttpStatus.OK);
+            return new ResponseEntity<>(userDto,HttpStatus.OK);
         }
 
     }

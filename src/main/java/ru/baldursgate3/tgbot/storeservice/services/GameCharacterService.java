@@ -1,14 +1,18 @@
 package ru.baldursgate3.tgbot.storeservice.services;
 
 import ru.baldursgate3.tgbot.storeservice.entities.GameCharacter;
-import ru.baldursgate3.tgbot.storeservice.models.GameCharacterCreateRequest;
+import ru.baldursgate3.tgbot.storeservice.models.GameCharacterDto;
 
 import java.util.List;
 
 public interface GameCharacterService {
 
-    GameCharacter create(GameCharacterCreateRequest gameCharacterCreateRequest);
-    List<GameCharacter> findGameCharacters();
+    GameCharacter create(GameCharacter newGameCharacter);
+    List<GameCharacter> findGameCharactersByTgId(Long tgId);
+
+    GameCharacter getGameCharacter(Long id);
+
+    void updateGameCharacter(GameCharacter gameCharacter);
 
     void deleteById(Long id);
 
