@@ -3,7 +3,6 @@ package ru.baldursgate3.tgbot.storeservice.services.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.baldursgate3.tgbot.storeservice.entities.GameCharacter;
-import ru.baldursgate3.tgbot.storeservice.models.GameCharacterDto;
 import ru.baldursgate3.tgbot.storeservice.repositories.GameCharacterRepository;
 import ru.baldursgate3.tgbot.storeservice.services.GameCharacterService;
 import ru.baldursgate3.tgbot.storeservice.services.UserService;
@@ -27,6 +26,18 @@ public class GameCharacterServiceImpl implements GameCharacterService {
 
         return gameCharacterRepository.findAllByTgId(tgId);
     }
+
+    @Override
+    public GameCharacter getGameCharacter(Long id) {
+        return gameCharacterRepository.findById(id).get();
+    }
+
+    @Override
+    public void updateGameCharacter(GameCharacter gameCharacter) {
+        gameCharacterRepository.save(gameCharacter);
+
+    }
+
 
     @Override
     public void deleteById(Long id) {

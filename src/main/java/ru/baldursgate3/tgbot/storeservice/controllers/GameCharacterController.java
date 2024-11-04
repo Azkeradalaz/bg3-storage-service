@@ -39,6 +39,25 @@ public class GameCharacterController {
         return new ResponseEntity<>(gameCharacter.getName(), HttpStatus.CREATED);
     }
 
+    @GetMapping("/{id}")
+    ResponseEntity<GameCharacterDto> getGameCharacter(@PathVariable Long id) {
+
+        GameCharacter gameCharacter = gameCharacterService.getGameCharacter(id);
+        return new ResponseEntity<>(
+                new GameCharacterDto(
+                        gameCharacter.getId(),
+                        gameCharacter.getName(),
+                        new UserDto(gameCharacter.getUser().getName(), gameCharacter.getUser().getTgUserId()),
+                        gameCharacter.getStrength(),
+                        gameCharacter.getDexterity(),
+                        gameCharacter.getConstitution(),
+                        gameCharacter.getIntellect(),
+                        gameCharacter.getWisdom(),
+                        gameCharacter.getCharisma())
+                , HttpStatus.OK);
+
+    }
+
     @GetMapping("/tgid/{tgId}")
     ResponseEntity<List<GameCharacterDto>> getGameCharacters(@PathVariable Long tgId) {
         List<GameCharacter> gameCharacterList = gameCharacterService.findGameCharactersByTgId(tgId);
@@ -64,16 +83,21 @@ public class GameCharacterController {
         return new ResponseEntity<>(gameCharacterDtoList, HttpStatus.OK);
     }
 
-    //    @PutMapping("/{id}")
-//    GameCharacter updateGameCharacter(@RequestBody GameCharacter newGameCharacter, @PathVariable Long id) {
-//        return gameCharacterRepository.findById(id)
-//                .map(gameCharacter -> {
-//                    gameCharacter.setName(gameCharacter.getName());
-//                    return gameCharacterRepository.save(gameCharacter);
-//                })
-//                .orElseGet(() -> gameCharacterRepository.save(newGameCharacter));
-//    }
-//
+    @PutMapping("/{id}")
+    void updateGameCharacter(@RequestBody GameCharacterDto newGameCharacterDto, @PathVariable Long id) {
+        GameCharacter gameCharacter = new GameCharacter();
+        gameCharacter.setId(id);
+        gameCharacter.setName(newGameCharacterDto.name());
+        gameCharacter.setUser(userService.findByTgId(newGameCharacterDto.userDto().tgUserId()));
+        gameCharacter.setStrength(newGameCharacterDto.strength());
+        gameCharacter.setDexterity(newGameCharacterDto.dexterity());
+        gameCharacter.setConstitution(newGameCharacterDto.constitution());
+        gameCharacter.setIntellect(newGameCharacterDto.intellect());
+        gameCharacter.setWisdom(newGameCharacterDto.wisdom());
+        gameCharacter.setCharisma(newGameCharacterDto.charisma());
+        gameCharacterService.updateGameCharacter(gameCharacter);
+    }
+
     @DeleteMapping("/{id}")
     void deleteGameCharacter(@PathVariable Long id) {
         gameCharacterService.deleteById(id);
