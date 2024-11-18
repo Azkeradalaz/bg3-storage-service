@@ -18,7 +18,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/character")
 public class GameCharacterController {
-
     private final GameCharacterService gameCharacterService;
     private final UserService userService;
 
@@ -102,11 +101,4 @@ public class GameCharacterController {
     void deleteGameCharacter(@PathVariable Long id) {
         gameCharacterService.deleteById(id);
     }
-
-//    @GetMapping("/{id}")
-//    ResponseEntity<GameCharacter> getGameCharacter(@PathVariable Long id) {
-//        gameCharacterService.getById();
-//    }
-
-
 }
