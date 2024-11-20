@@ -25,7 +25,7 @@ public class UserController {
         }
         newUser.setName(userName);
         newUser.setTgUserId(user.tgUserId());
-        userService.create(newUser);
+        userService.save(newUser);
         return new ResponseEntity<>(newUser.getName(),HttpStatus.CREATED);
     }
 

@@ -26,7 +26,4 @@ public class GameCharacter {
     private short intellect;
     private short wisdom;
     private short charisma;
-
-
-    
 }

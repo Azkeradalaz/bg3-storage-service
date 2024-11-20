@@ -9,6 +9,7 @@ import ru.baldursgate3.tgbot.storeservice.entities.User;
 import ru.baldursgate3.tgbot.storeservice.models.GameCharacterDto;
 import ru.baldursgate3.tgbot.storeservice.models.UserDto;
 import ru.baldursgate3.tgbot.storeservice.services.GameCharacterService;
+import ru.baldursgate3.tgbot.storeservice.services.SessionService;
 import ru.baldursgate3.tgbot.storeservice.services.UserService;
 
 import java.util.ArrayList;
@@ -18,25 +19,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/character")
 public class GameCharacterController {
-    private final GameCharacterService gameCharacterService;
     private final UserService userService;
-
-    @PostMapping
-    ResponseEntity<String> createGameCharacter(@RequestBody GameCharacterDto newGameCharacter) {
-
-        User user = userService.findByTgId(newGameCharacter.userDto().tgUserId());
-        GameCharacter gameCharacter = new GameCharacter();
-        gameCharacter.setName(newGameCharacter.name());
-        gameCharacter.setUser(user);
-        gameCharacter.setStrength(newGameCharacter.strength());
-        gameCharacter.setDexterity(newGameCharacter.dexterity());
-        gameCharacter.setConstitution(newGameCharacter.constitution());
-        gameCharacter.setIntellect(newGameCharacter.intellect());
-        gameCharacter.setWisdom(newGameCharacter.wisdom());
-        gameCharacter.setCharisma(newGameCharacter.charisma());
-        gameCharacterService.create(gameCharacter);
-        return new ResponseEntity<>(gameCharacter.getName(), HttpStatus.CREATED);
-    }
+    private final SessionService sessionService;
+    private final GameCharacterService gameCharacterService;
 
     @GetMapping("/{id}")
     ResponseEntity<GameCharacterDto> getGameCharacter(@PathVariable Long id) {
@@ -55,6 +40,23 @@ public class GameCharacterController {
                         gameCharacter.getCharisma())
                 , HttpStatus.OK);
 
+    }
+
+    @PostMapping
+    ResponseEntity<Long> createGameCharacter(@RequestBody GameCharacterDto newGameCharacter) {
+
+        User user = userService.findByTgId(newGameCharacter.userDto().tgUserId());
+        GameCharacter gameCharacter = new GameCharacter();
+        gameCharacter.setName(newGameCharacter.name());
+        gameCharacter.setUser(user);
+        gameCharacter.setStrength(newGameCharacter.strength());
+        gameCharacter.setDexterity(newGameCharacter.dexterity());
+        gameCharacter.setConstitution(newGameCharacter.constitution());
+        gameCharacter.setIntellect(newGameCharacter.intellect());
+        gameCharacter.setWisdom(newGameCharacter.wisdom());
+        gameCharacter.setCharisma(newGameCharacter.charisma());
+        gameCharacter = gameCharacterService.create(gameCharacter);
+        return new ResponseEntity<>(gameCharacter.getId(), HttpStatus.CREATED);
     }
 
     @GetMapping("/tgid/{tgId}")
@@ -77,8 +79,6 @@ public class GameCharacterController {
             );
 
         }
-
-        //todo возвращает всех персов всех пользователей
         return new ResponseEntity<>(gameCharacterDtoList, HttpStatus.OK);
     }
 

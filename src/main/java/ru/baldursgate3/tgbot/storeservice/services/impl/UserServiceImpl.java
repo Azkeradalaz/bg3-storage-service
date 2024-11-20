@@ -1,5 +1,6 @@
 package ru.baldursgate3.tgbot.storeservice.services.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.baldursgate3.tgbot.storeservice.entities.User;
 import ru.baldursgate3.tgbot.storeservice.exceptions.UserNotFoundException;
@@ -8,15 +9,12 @@ import ru.baldursgate3.tgbot.storeservice.services.UserService;
 
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
     @Override
-    public User create(User user) {
+    public User save(User user) {
         return userRepository.save(user);
     }
 
