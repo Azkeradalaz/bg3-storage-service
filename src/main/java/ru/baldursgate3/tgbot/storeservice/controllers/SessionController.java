@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.baldursgate3.tgbot.storeservice.models.SessionDto;
 import ru.baldursgate3.tgbot.storeservice.services.SessionService;
 
+import java.util.Optional;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -21,7 +23,8 @@ public class SessionController {
     }
 
     @PutMapping({"/gamechar/{tgId}"})
-    void updateChar(@PathVariable Long tgId, @RequestBody Long gameCharId){
+    void updateChar(@PathVariable Long tgId, @RequestBody Optional<Long> gameCharId){
+
         sessionService.updateSessionGameCharacter(tgId, gameCharId);
     }
 

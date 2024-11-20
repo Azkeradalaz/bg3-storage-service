@@ -14,6 +14,7 @@ import ru.baldursgate3.tgbot.storeservice.services.UserService;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 
 @Slf4j
@@ -43,7 +44,8 @@ public class SessionServiceImpl implements SessionService {
             session.setDateExpire(Timestamp.valueOf(LocalDateTime.now()));//todo
             session = sessionRepository.save(session);
         } else {
-            session = sessionRepository.findByUserId(user.getId());
+            session = sessionRepository.findByUserId(
+                    userService.findByTgId(userTgId).getId());
             if (session == null) {
                 session = new Session();
                 session.setUser(user);
@@ -54,7 +56,7 @@ public class SessionServiceImpl implements SessionService {
             }
         }
         result = new SessionDto(session.getUser().getTgUserId(),
-                session.getGameCharacter()==null ? null : session.getGameCharacter().getId(),
+                session.getGameCharacter() == null ? null : session.getGameCharacter().getId(),
                 session.getState());
         return result;
     }
@@ -69,9 +71,14 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public void updateSessionGameCharacter(Long userTgId, Long gameCharId) {
-        Session session = sessionRepository.findByUserId(userTgId);
-        GameCharacter gameCharacter = gameCharacterService.getGameCharacter(gameCharId);
+    public void updateSessionGameCharacter(Long userTgId, Optional<Long> gameCharId) {
+        Session session = sessionRepository.findByUserId(
+                userService.findByTgId(userTgId).getId());
+
+        GameCharacter gameCharacter = null;
+        if (gameCharId.isPresent()) {
+            gameCharacter = gameCharacterService.getGameCharacter(gameCharId.get());
+        }
         session.setGameCharacter(gameCharacter);
         sessionRepository.save(session);
         log.info("Сессия изменениа {}", session);
