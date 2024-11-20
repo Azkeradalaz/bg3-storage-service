@@ -10,6 +10,11 @@ import ru.baldursgate3.tgbot.storeservice.models.SessionDto;
 import java.util.List;
 
 public interface SessionRepository extends JpaRepository<Session, Long> {
-    @Query(value = "select * from session where user_id = ?1", nativeQuery = true)
+    @Query(value = "select s.id, " +
+            "s.user_id," +
+            "s.game_character_id," +
+            "s.state," +
+            "s.date_created," +
+            "s.date_expire from session s where user_id = ?1", nativeQuery = true)
     Session findByUserId(Long tgId);
 }

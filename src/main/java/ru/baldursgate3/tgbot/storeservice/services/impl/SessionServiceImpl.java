@@ -30,32 +30,39 @@ public class SessionServiceImpl implements SessionService {
     public SessionDto getSession(Long userTgId) {
         User user = userService.findByTgId(userTgId);
         SessionDto result = null;
+        Session session = null;
         if (user == null) {
             user = new User();
             user.setName("default");
             user.setTgUserId(userTgId);
             user = userService.save(user);
+            session = new Session();
+            session.setUser(user);
+            session.setState("REGISTER_STEP_ONE");
+            session.setDateCreated(Timestamp.valueOf(LocalDateTime.now()));
+            session.setDateExpire(Timestamp.valueOf(LocalDateTime.now()));//todo
+            session = sessionRepository.save(session);
         } else {
-            Session session = sessionRepository.findByUserId(user.getId());
+            session = sessionRepository.findByUserId(user.getId());
             if (session == null) {
                 session = new Session();
                 session.setUser(user);
-                session.setState("REGISTER");
+                session.setState("MAIN_MENU");
                 session.setDateCreated(Timestamp.valueOf(LocalDateTime.now()));
                 session.setDateExpire(Timestamp.valueOf(LocalDateTime.now()));//todo
                 session = sessionRepository.save(session);
             }
-
-            result = new SessionDto(session.getUser().getTgUserId(),
-                    session.getGameCharacter()==null ? null : session.getGameCharacter().getId(),
-                    session.getState());
         }
+        result = new SessionDto(session.getUser().getTgUserId(),
+                session.getGameCharacter()==null ? null : session.getGameCharacter().getId(),
+                session.getState());
         return result;
     }
 
     @Override
     public void updateSessionState(Long userTgId, String state) {
-        Session session = sessionRepository.findByUserId(userTgId);
+        Session session = sessionRepository.findByUserId(
+                userService.findByTgId(userTgId).getId());
         session.setState(state);
         sessionRepository.save(session);
         log.info("Сессия изменениа {}", session);

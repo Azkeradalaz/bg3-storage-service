@@ -20,7 +20,6 @@ import java.util.List;
 @RequestMapping("/character")
 public class GameCharacterController {
     private final UserService userService;
-    private final SessionService sessionService;
     private final GameCharacterService gameCharacterService;
 
     @GetMapping("/{id}")
