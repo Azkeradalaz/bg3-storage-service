@@ -39,7 +39,7 @@ public class SessionServiceImpl implements SessionService {
             user = userService.save(user);
             session = new Session();
             session.setUser(user);
-            session.setState("REGISTER_STEP_ONE");
+            session.setState("REGISTER");
             session.setDateCreated(Timestamp.valueOf(LocalDateTime.now()));
             session.setDateExpire(Timestamp.valueOf(LocalDateTime.now()));//todo
             session = sessionRepository.save(session);
